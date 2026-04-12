@@ -5,7 +5,7 @@ import com.example.lj1_bd_2sem.model.common.Employee;
 import java.util.List;
 
 public class Market {
-    List<Employee> employees;
+    private List<Employee> employees;
 
     public void addEmployee(Employee employee){
         employees.add(employee);

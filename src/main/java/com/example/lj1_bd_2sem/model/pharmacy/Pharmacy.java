@@ -6,8 +6,8 @@ import com.example.lj1_bd_2sem.model.common.Product;
 import java.util.List;
 
 public class Pharmacy {
-    List<Employee> employees;
-    List<Product> products;
+    private List<Employee> employees;
+    private List<Product> products;
 
     public void addEmployee(Employee employee){
         employees.add(employee);

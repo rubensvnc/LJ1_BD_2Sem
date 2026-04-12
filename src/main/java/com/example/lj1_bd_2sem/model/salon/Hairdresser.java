@@ -1,4 +1,4 @@
-package com.example.lj1_bd_2sem.model.hairdresser;
+package com.example.lj1_bd_2sem.model.salon;
 
 import com.example.lj1_bd_2sem.model.common.Customer;
 import com.example.lj1_bd_2sem.model.common.Employee;
