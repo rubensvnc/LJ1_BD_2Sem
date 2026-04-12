@@ -21,14 +21,18 @@ The project is currently **under development**. So far, the following modules ha
 ### 1. Basic Logic & Console Output
 * Foundational exercises focused on Java syntax, data types, and standard I/O operations.
 * Implementation of control flow structures (conditionals and loops).
-
+### 2. Object-Oriented Design (OOP)
+Advanced abstraction of real-world scenarios (Hair Salon, Pharmacy, and Street Market) applying core OOP principles:
+* Abstraction: Identifying essential attributes and behaviors
+* Hierarchy (Inheritance): Defining parent and child classes to promote code reuse.
+* Aggregation & Association: Modeling complex relationships between entities (e.g., Customers, Employee, and Establishments).
 
 ---
 
 ## 📂 Project Structure
 
 * `src/main/java/.../simple_logic_exercises`: Simples logic exercises.
-
+* `src/main/java/.../model`: Domain entities and OOP logic.
 
 ---
 
