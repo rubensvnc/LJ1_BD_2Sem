@@ -5,11 +5,13 @@ public class Customer {
     private int cpf;
     private int age;
     private String name;
+    private Double balance;
 
-    public Customer(int cpf, int age, String name) {
+    public Customer(int cpf, int age, String name, Double balance) {
         this.cpf = cpf;
         this.age = age;
         this.name = name;
+        this.balance = balance;
     }
 
     public int getCpf() {
@@ -35,4 +37,6 @@ public class Customer {
     public void setName(String name) {
         this.name = name;
     }
+
+    public Double getBalance(){return this.balance; }
 }
