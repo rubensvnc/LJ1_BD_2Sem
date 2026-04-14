@@ -14,29 +14,29 @@ public class Customer {
         this.balance = balance;
     }
 
-    public int getCpf() {
-        return cpf;
+    public void purchase(Product product, Business business){
+        if (balance >= product.getPrice()){
+            boolean success = business.processSale(product);
+            if(success){
+                balance -= product.getPrice();
+                System.out.println("Purchase successful!");
+            }
+        } else {
+            System.out.println("Insufficient balance!");
+        }
     }
 
-    public void setCpf(int cpf) {
-        this.cpf = cpf;
+    public int getCpf() {
+        return cpf;
     }
 
     public int getAge() {
         return age;
     }
 
-    public void setAge(int age) {
-        this.age = age;
-    }
-
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Double getBalance(){return this.balance; }
+    public Double getBalance(){ return this.balance; }
 }
