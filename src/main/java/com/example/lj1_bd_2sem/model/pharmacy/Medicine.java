@@ -7,8 +7,8 @@ public class Medicine extends Product {
     private String indicatedUse;
     private String precautions;
 
-    public Medicine(String name, Double price){
-        super(name, price);
+    public Medicine(String name, Double price, int quantity){
+        super(name, price, quantity);
     }
 
     public String getExpirationDate() {
