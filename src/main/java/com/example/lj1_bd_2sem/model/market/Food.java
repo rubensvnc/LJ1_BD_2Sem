@@ -5,8 +5,8 @@ import com.example.lj1_bd_2sem.model.common.Product;
 public class Food extends Product {
     private String expirationDate;
 
-    public Food (String name, Double price, String expirationDate){
-        super(name, price);
+    public Food (String name, Double price, int quantity, String expirationDate){
+        super(name, price, quantity);
         this.expirationDate = expirationDate;
     }
 
