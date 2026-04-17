@@ -1,7 +1,5 @@
 package com.example.lj1_bd_2sem.model.common;
 
-import jdk.internal.foreign.abi.fallback.FallbackLinker;
-
 import java.util.List;
 
 public abstract class Business {
