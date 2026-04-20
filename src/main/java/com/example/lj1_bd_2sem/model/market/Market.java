@@ -6,7 +6,7 @@ import com.example.lj1_bd_2sem.model.common.Employee;
 import java.util.List;
 
 public class Market extends Business {
-    public Market (List<Employee> employees, String cnpj){
-        super(employees, cnpj);
+    public Market (String cnpj){
+        super(cnpj);
     }
 }

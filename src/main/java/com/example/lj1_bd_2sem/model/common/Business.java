@@ -1,15 +1,15 @@
 package com.example.lj1_bd_2sem.model.common;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Business {
-    private List<Employee> employees;
-    private List<Product> products;
+    private List<Employee> employees = new ArrayList<>();
+    private List<Product> products = new ArrayList<>();
     private String cnpj;
-    private Double earnings;
+    private Double earnings = 0.0;
 
-    public Business(List<Employee> employees, String cnpj){
-        this.employees = employees;
+    public Business(String cnpj){
         this.cnpj = cnpj;
     }
 
