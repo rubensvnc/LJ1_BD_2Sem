@@ -1,11 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
 
 <AnchorPane prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.lj1_bd_2sem.controller.MarketController">
    <children>
-      <Button fx:id="gotoHomeBtn" layoutX="265.0" layoutY="172.0" mnemonicParsing="false" onAction="#gotoHome" text="Home" />
+      <Button fx:id="gotoHomeBtn" layoutX="326.0" layoutY="399.0" mnemonicParsing="false" onAction="#gotoHome" text="Home" />
+      <Button fx:id="buyGrapeBtn" layoutX="111.0" layoutY="209.0" mnemonicParsing="false" onAction="#buyGrape" text="Buy grape" />
+      <Button fx:id="buyBananaBtn" layoutX="263.0" layoutY="209.0" mnemonicParsing="false" onAction="#buyBanana" text="Buy banana" />
+      <Button fx:id="buyAppleBtn" layoutX="473.0" layoutY="209.0" mnemonicParsing="false" onAction="#buyApple" text="Buy apple" />
+      <Button fx:id="processPurchaseBtn" disable="true" layoutX="287.0" layoutY="294.0" mnemonicParsing="false" onAction="#processPurchase" text="Process purchase" />
+      <Button fx:id="retrieveItemsBtn" disable="true" layoutX="441.0" layoutY="294.0" mnemonicParsing="false" onAction="#retrieveItems" text="Retrieve Items" />
+      <Label layoutX="61.0" layoutY="14.0" text="Customer Reimaning Balance: ">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label fx:id="balanceLbl" layoutX="279.0" layoutY="13.0" prefHeight="26.0" prefWidth="250.0">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="61.0" layoutY="40.0" text="Current cart:">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label fx:id="cartItensQuantityLbl" layoutX="152.0" layoutY="40.0" prefHeight="22.0" prefWidth="82.0">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
