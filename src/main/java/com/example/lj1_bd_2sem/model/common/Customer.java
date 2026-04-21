@@ -26,6 +26,15 @@ public class Customer {
         }
     }
 
+    public void purchase(Double value){
+        if (balance >= value){
+            balance -= value;
+            System.out.println("Purchase successful!");
+        } else {
+            System.out.println("Insufficient balance!");
+        }
+    }
+
     public int getCpf() {
         return cpf;
     }
