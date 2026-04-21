@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.lj1_bd_2sem.controller.PharmacyController">
+   <children>
+      <Label layoutX="81.0" layoutY="34.0" text="Customer Reimaning Balance: ">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label fx:id="balanceLbl" layoutX="306.0" layoutY="34.0">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Button fx:id="gotoHomeBtn" layoutX="604.0" layoutY="14.0" mnemonicParsing="false" onAction="#gotoHome" text="Go to Home" />
+      <ComboBox fx:id="medicinesCbox" layoutX="113.0" layoutY="172.0" onAction="#handleSelectionCbox" prefWidth="150.0" promptText="Medicines" />
+      <Label layoutX="227.0" layoutY="146.0">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Button fx:id="buyMedicine" disable="true" layoutX="144.0" layoutY="250.0" mnemonicParsing="false" onAction="#buyMedicine" text="Buy medicine" />
+      <Label layoutX="427.0" layoutY="146.0" text="MEDICINE INFO">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="361.0" layoutY="185.0" text="Medicine price:">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="361.0" layoutY="208.0" text="Name:">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="361.0" layoutY="237.0" text="Expiration Date:">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="361.0" layoutY="263.0" text="Indicated Use:">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="361.0" layoutY="289.0" text="Precautions:">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label fx:id="medicinePriceLbl" layoutX="472.0" layoutY="185.0">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label fx:id="medicineNameLbl" layoutX="414.0" layoutY="208.0">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label fx:id="medicineExpirationDateLbl" layoutX="479.0" layoutY="237.0">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label fx:id="medicineIndicatedUseLbl" layoutX="467.0" layoutY="263.0">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label fx:id="medicinePrecautionsLbl" layoutX="454.0" layoutY="289.0">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Spinner fx:id="quantitySpn" disable="true" layoutX="113.0" layoutY="208.0" />
+   </children>
+</AnchorPane>
