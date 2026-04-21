@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.lj1_bd_2sem.controller.SalonController">
+   <children>
+      <Label layoutX="71.0" layoutY="24.0" text="Customer Reimaning Balance: ">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Button fx:id="cutHairBtn" disable="true" layoutX="136.0" layoutY="180.0" mnemonicParsing="false" onAction="#cutHair" text="Cut hair" />
+      <Button fx:id="washHairBtn" layoutX="379.0" layoutY="180.0" mnemonicParsing="false" onAction="#washHair" text="Wash Hair" />
+      <Button fx:id="gotoHomeBtn" layoutX="498.0" layoutY="78.0" mnemonicParsing="false" onAction="#gotoHome" text="Go to Home" />
+      <ComboBox fx:id="stylesCbox" layoutX="90.0" layoutY="140.0" onAction="#handleSelection" prefWidth="150.0" promptText="Style" />
+      <Label layoutX="90.0" layoutY="116.0" text="Cut price:">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label fx:id="cutValueLbl" layoutX="162.0" layoutY="116.0">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label fx:id="balanceLbl" layoutX="285.0" layoutY="24.0">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="365.0" layoutY="155.0" text="Wash price:">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label fx:id="washValueLbl" layoutX="449.0" layoutY="155.0">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
