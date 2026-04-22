@@ -25,6 +25,10 @@ public class HomeController {
     @FXML
     public void initialize(){
         if (LoggedCustomer.getLoggedCustomer() != null){
+            gotoMarketBtn.setDisable(false);
+            gotoSalonBtn.setDisable(false);
+            gotoPharmacyBtn.setDisable(false);
+
             nameTF.setText(LoggedCustomer.getLoggedCustomer().getName());
             ageTF.setText(Integer.toString(LoggedCustomer.getLoggedCustomer().getAge()));
             cpfTF.setText(Integer.toString(LoggedCustomer.getLoggedCustomer().getCpf()));
@@ -36,6 +40,10 @@ public class HomeController {
             balanceTF.setDisable(true);
             addCustomerBtn.setDisable(true);
         } else {
+            gotoMarketBtn.setDisable(true);
+            gotoSalonBtn.setDisable(true);
+            gotoPharmacyBtn.setDisable(true);
+
             nameTF.setText("");
             ageTF.setText("");
             cpfTF.setText("");
