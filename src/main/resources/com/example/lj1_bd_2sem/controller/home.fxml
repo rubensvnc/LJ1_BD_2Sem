@@ -3,14 +3,16 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.lj1_bd_2sem.controller.HomeController">
    <children>
-      <Button fx:id="gotoMarketBtn" layoutX="109.0" layoutY="323.0" mnemonicParsing="false" onAction="#gotoMarket" text="Market" />
-      <Button fx:id="gotoSalonBtn" layoutX="256.0" layoutY="323.0" mnemonicParsing="false" onAction="#gotoSalon" text="Salon" />
-      <Button fx:id="gotoPharmacyBtn" layoutX="412.0" layoutY="323.0" mnemonicParsing="false" onAction="#gotoPharmacy" text="Pharmacy" />
+      <Button fx:id="gotoMarketBtn" layoutX="109.0" layoutY="388.0" mnemonicParsing="false" onAction="#gotoMarket" text="Market" />
+      <Button fx:id="gotoSalonBtn" layoutX="302.0" layoutY="388.0" mnemonicParsing="false" onAction="#gotoSalon" text="Salon" />
+      <Button fx:id="gotoPharmacyBtn" layoutX="491.0" layoutY="388.0" mnemonicParsing="false" onAction="#gotoPharmacy" text="Pharmacy" />
       <Label layoutX="21.0" layoutY="30.0" text="Cliente:">
          <font>
             <Font size="16.0" />
@@ -42,5 +44,20 @@
       </Label>
       <Button fx:id="replaceClienteBtn" layoutX="279.0" layoutY="104.0" mnemonicParsing="false" onAction="#replaceClient" text="Replace Client" />
       <Button fx:id="addCustomerBtn" layoutX="109.0" layoutY="203.0" mnemonicParsing="false" onAction="#addCustomer" text="Add Client" />
+      <ImageView fitHeight="114.0" fitWidth="179.0" layoutX="52.0" layoutY="257.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../img/market.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="114.0" fitWidth="179.0" layoutX="241.0" layoutY="257.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../img/salon.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="114.0" fitWidth="179.0" layoutX="451.0" layoutY="257.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../img/pharmacy.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
