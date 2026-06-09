@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox prefHeight="600.0" prefWidth="850.0" spacing="15.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.lj1_bd_2sem.controller.AgendaSalaoController">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+    <children>
+        <Label text="Agenda e Atendimentos do Salão">
+            <font>
+                <Font name="System Bold" size="20.0" />
+            </font>
+        </Label>
+
+        <GridPane hgap="10.0" vgap="10.0">
+            <children>
+                <Label text="Cliente (ID/CPF):" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                <TextField fx:id="txtClienteId" disable="true" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+                <Label text="Profissional:" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+                <ComboBox fx:id="comboProfissionais" disable="true" prefWidth="150.0" GridPane.columnIndex="3" GridPane.rowIndex="0" />
+
+                <Label text="Status:" GridPane.columnIndex="4" GridPane.rowIndex="0" />
+                <ComboBox fx:id="comboStatus" disable="true" prefWidth="150.0" GridPane.columnIndex="5" GridPane.rowIndex="0" />
+
+                <Label text="Serviço:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                <ComboBox fx:id="comboServicos" disable="true" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+                <Label text="Data:" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                <DatePicker fx:id="pickerData" disable="true" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+
+                <Label text="Hora (HH:mm):" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+                <TextField fx:id="txtHora" disable="true" prefWidth="70.0" promptText="09:00" GridPane.columnIndex="5" GridPane.rowIndex="1" />
+            </children>
+         <columnConstraints>
+            <ColumnConstraints />
+            <ColumnConstraints />
+            <ColumnConstraints />
+            <ColumnConstraints />
+            <ColumnConstraints />
+            <ColumnConstraints />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints />
+            <RowConstraints />
+         </rowConstraints>
+        </GridPane>
+
+        <HBox spacing="10.0">
+            <children>
+                <Button fx:id="btnAgendar" disable="true" mnemonicParsing="false" onAction="#salvarAgendamento" style="-fx-background-color: #8e44ad; -fx-text-fill: white;" text="Alterar Dados" />
+            </children>
+        </HBox>
+
+        <TableView fx:id="tabelaAgenda" VBox.vgrow="ALWAYS">
+            <columns>
+                <TableColumn fx:id="colHora" prefWidth="80.0" text="Hora" />
+                <TableColumn fx:id="colCliente" prefWidth="200.0" text="Cliente" />
+                <TableColumn fx:id="colProfissional" prefWidth="180.0" text="Profissional" />
+                <TableColumn fx:id="colServico" prefWidth="180.0" text="Serviço" />
+                <TableColumn fx:id="colStatus" prefWidth="150.0" text="Status" />
+            </columns>
+        </TableView>
+    </children>
+</VBox>

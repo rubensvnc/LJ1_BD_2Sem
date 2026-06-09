@@ -14,9 +14,9 @@ public class Launcher extends Application{
 
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/lj1_bd_2sem/controller/home.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/login.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 700, 500);
-        stage.setTitle("Home");
+        stage.setTitle("Login");
         stage.setScene(scene);
         stage.show();
     }
