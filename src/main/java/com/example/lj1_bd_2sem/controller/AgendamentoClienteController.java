@@ -27,6 +27,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 public class AgendamentoClienteController {
     @FXML private ComboBox<Servico> comboServicos;
@@ -45,7 +46,6 @@ public class AgendamentoClienteController {
     private ObservableList<Servico> servicosList = FXCollections.observableArrayList();
     private ObservableList<Usuario> profissionaisList = FXCollections.observableArrayList();
     private ObservableList<AgendamentoDTO> meusAgendamentosList = FXCollections.observableArrayList();
-    private Timeline pollingTimeline;
 
     @FXML
     public void initialize() {
@@ -62,8 +62,6 @@ public class AgendamentoClienteController {
         comboServicos.setItems(servicosList);
         comboProfissionais.setItems(profissionaisList);
         tabelaMeusAgendamentos.setItems(meusAgendamentosList);
-
-        iniciarPolling();
     }
 
     private void atualizarSaldo() {
@@ -74,28 +72,13 @@ public class AgendamentoClienteController {
         }
     }
 
-    private void iniciarPolling() {
-        pollingTimeline = new Timeline(new KeyFrame(Duration.seconds(3), e -> {
-            carregarMeusAgendamentos();
-            for (AgendamentoDTO dto : meusAgendamentosList) {
-                if ("EM ANDAMENTO".equals(dto.getStatusConclusao())) {
-                    pollingTimeline.stop();
-                    abrirTelaExecucao(dto.getId());
-                    break;
-                }
-            }
-        }));
-        pollingTimeline.setCycleCount(Timeline.INDEFINITE);
-        pollingTimeline.play();
-    }
-
     private void abrirTelaExecucao(int agendaId) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/executando_servico.fxml"));
             Parent root = loader.load();
             ExecutandoServicoController controller = loader.getController();
             Agenda agenda = agendaDAO.buscarPorId(agendaId);
-            if (agenda != null) controller.setAgendamento(agendaId, agenda.getServicoId());
+            if (agenda != null) controller.setAgendamento(agendaId);
             Stage stage = (Stage) tabelaMeusAgendamentos.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.setTitle("Executando Serviço");
@@ -116,7 +99,9 @@ public class AgendamentoClienteController {
         meusAgendamentosList.clear();
         Usuario cliente = SessionManager.getUsuarioLogado();
         if (cliente != null && "CLIENTE".equals(cliente.getPerfil())) {
-            meusAgendamentosList.addAll(agendaDAO.listarPorCliente(cliente.getId()));
+            List<AgendamentoDTO> lista = agendaDAO.listarPorCliente(cliente.getId());
+            meusAgendamentosList.addAll(lista);
+            System.out.println("Carregados " + lista.size() + " agendamentos do cliente.");
         }
     }
 

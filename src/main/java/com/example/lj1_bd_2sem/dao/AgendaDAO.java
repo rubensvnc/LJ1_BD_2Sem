@@ -10,6 +10,21 @@ import java.util.List;
 
 public class AgendaDAO {
 
+    public void atualizar(Agenda agenda) {
+        String sql = "UPDATE agenda SET profissional_id = ?, servico_id = ?, hora_agendado = ?, status_conclusao = ? WHERE id = ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, agenda.getProfissionalId());
+            pstmt.setInt(2, agenda.getServicoId());
+            pstmt.setTime(3, Time.valueOf(agenda.getHoraAgendado()));
+            pstmt.setString(4, agenda.getStatusConclusao());
+            pstmt.setInt(5, agenda.getId());
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void inserir(Agenda agenda) {
         String sql = "INSERT INTO agenda (cliente_id, profissional_id, servico_id, hora_agendado, status_conclusao) VALUES (?, ?, ?, ?, ?)";
         try (Connection conn = DatabaseConnection.getConnection();

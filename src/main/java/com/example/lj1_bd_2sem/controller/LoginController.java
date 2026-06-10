@@ -2,6 +2,7 @@ package com.example.lj1_bd_2sem.controller;
 
 import com.example.lj1_bd_2sem.dao.UsuarioDAO;
 import com.example.lj1_bd_2sem.model.Usuario;
+import com.example.lj1_bd_2sem.util.NotificationService;
 import com.example.lj1_bd_2sem.util.ScreenManager;
 import com.example.lj1_bd_2sem.util.SessionManager;
 import javafx.fxml.FXML;
@@ -31,7 +32,10 @@ public class LoginController {
             if (u != null) {
                 SessionManager.setUsuarioLogado(u);
                 if (u.getPerfil().equals("ADM")) ScreenManager.trocarTela("/dashboard.fxml", stage, "Dashboard");
-                else if (u.getPerfil().equals("CLIENTE")) ScreenManager.trocarTela("/home.fxml", stage, "Home");
+                else if (u.getPerfil().equals("CLIENTE")) {
+                    ScreenManager.trocarTela("/home.fxml", stage, "Home");
+                    NotificationService.getInstance().startPolling(stage);
+                }
                 else if (u.getPerfil().equals("PROFISSIONAL")) ScreenManager.trocarTela("/menu_profissional.fxml", stage, "Menu Profissional");
                 else lblErro.setText("Perfil não reconhecido.");
             } else {

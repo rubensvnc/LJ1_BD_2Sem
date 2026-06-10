@@ -13,36 +13,37 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.util.Duration;
-
 import java.io.File;
 
 public class ExecutandoServicoController {
-
-    @FXML
-    private Label lblStatusServico;
-    @FXML
-    private MediaView mediaViewVideo;
-    @FXML
-    private Label lblTempoRestante;
-    @FXML
-    private ProgressBar progressServico;
+    @FXML private Label lblStatusServico;
+    @FXML private MediaView mediaViewVideo;
+    @FXML private Label lblTempoRestante;
+    @FXML private ProgressBar progressServico;
 
     private Timeline timeline;
     private int duracaoTotalSegundos;
     private int segundosRestantes;
     private int agendaId;
 
-    public void setAgendamento(int agendaId, int servicoId) {
+    // Método alterado para receber apenas o agendaId
+    public void setAgendamento(int agendaId) {
         this.agendaId = agendaId;
-        ServicoDAO servicoDAO = new ServicoDAO();
-        Servico servico = servicoDAO.buscarPorId(servicoId);
-        if (servico != null) {
-            this.duracaoTotalSegundos = servico.getDuracao();
-            this.segundosRestantes = duracaoTotalSegundos;
-            iniciarCronometro();
-            carregarVideo(servico.getNome());
+        AgendaDAO agendaDAO = new AgendaDAO();
+        Agenda agenda = agendaDAO.buscarPorId(agendaId);
+        if (agenda != null) {
+            ServicoDAO servicoDAO = new ServicoDAO();
+            Servico servico = servicoDAO.buscarPorId(agenda.getServicoId());
+            if (servico != null) {
+                this.duracaoTotalSegundos = servico.getDuracao();
+                this.segundosRestantes = duracaoTotalSegundos;
+                iniciarCronometro();
+                carregarVideo(servico.getNome());
+            } else {
+                lblStatusServico.setText("Erro: Serviço não encontrado.");
+            }
         } else {
-            lblStatusServico.setText("Erro: Serviço não encontrado.");
+            lblStatusServico.setText("Erro: Agendamento não encontrado.");
         }
     }
 
@@ -67,10 +68,9 @@ public class ExecutandoServicoController {
         timeline.play();
     }
 
+    // Exibe apenas segundos restantes
     private void atualizarLabelTempo() {
-        int minutos = segundosRestantes / 60;
-        int segundos = segundosRestantes % 60;
-        lblTempoRestante.setText(String.format("Tempo restante: %02d:%02d", minutos, segundos));
+        lblTempoRestante.setText("Tempo restante: " + segundosRestantes + " segundos");
     }
 
     private void carregarVideo(String nomeServico) {
@@ -88,8 +88,6 @@ public class ExecutandoServicoController {
     }
 
     public void pararCronometro() {
-        if (timeline != null) {
-            timeline.stop();
-        }
+        if (timeline != null) timeline.stop();
     }
 }

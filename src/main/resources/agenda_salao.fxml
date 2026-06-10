@@ -20,7 +20,6 @@
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
     <children>
-        <Button fx:id="btnVoltarMenu" onAction="#voltarMenu" text="Voltar ao Menu" />
         <Label text="Agenda e Atendimentos do Salão">
             <font>
                 <Font name="System Bold" size="20.0" />
@@ -29,41 +28,42 @@
 
         <GridPane hgap="10.0" vgap="10.0">
             <children>
-                <Label text="Cliente (ID/CPF):" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-                <TextField fx:id="txtClienteId" disable="true" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                <Label text="Cliente:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                <TextField fx:id="txtClienteId" editable="false" style="-fx-background-color: #eee;" GridPane.columnIndex="1" GridPane.rowIndex="0" />
 
                 <Label text="Profissional:" GridPane.columnIndex="2" GridPane.rowIndex="0" />
-                <ComboBox fx:id="comboProfissionais" disable="true" prefWidth="150.0" GridPane.columnIndex="3" GridPane.rowIndex="0" />
+                <ComboBox fx:id="comboProfissionais" prefWidth="150.0" GridPane.columnIndex="3" GridPane.rowIndex="0" />
 
                 <Label text="Status:" GridPane.columnIndex="4" GridPane.rowIndex="0" />
-                <ComboBox fx:id="comboStatus" disable="true" prefWidth="150.0" GridPane.columnIndex="5" GridPane.rowIndex="0" />
+                <ComboBox fx:id="comboStatus" prefWidth="150.0" GridPane.columnIndex="5" GridPane.rowIndex="0" />
 
                 <Label text="Serviço:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-                <ComboBox fx:id="comboServicos" disable="true" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <ComboBox fx:id="comboServicos" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
                 <Label text="Data:" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                <DatePicker fx:id="pickerData" disable="true" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                <DatePicker fx:id="pickerData" GridPane.columnIndex="3" GridPane.rowIndex="1" />
 
                 <Label text="Hora (HH:mm):" GridPane.columnIndex="4" GridPane.rowIndex="1" />
-                <TextField fx:id="txtHora" disable="true" prefWidth="70.0" promptText="09:00" GridPane.columnIndex="5" GridPane.rowIndex="1" />
+                <TextField fx:id="txtHora" prefWidth="70.0" promptText="09:00" GridPane.columnIndex="5" GridPane.rowIndex="1" />
             </children>
-         <columnConstraints>
-            <ColumnConstraints />
-            <ColumnConstraints />
-            <ColumnConstraints />
-            <ColumnConstraints />
-            <ColumnConstraints />
-            <ColumnConstraints />
-         </columnConstraints>
-         <rowConstraints>
-            <RowConstraints />
-            <RowConstraints />
-         </rowConstraints>
+            <columnConstraints>
+                <ColumnConstraints />
+                <ColumnConstraints />
+                <ColumnConstraints />
+                <ColumnConstraints />
+                <ColumnConstraints />
+                <ColumnConstraints />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints />
+                <RowConstraints />
+            </rowConstraints>
         </GridPane>
 
         <HBox spacing="10.0">
             <children>
-                <Button fx:id="btnAgendar" disable="true" mnemonicParsing="false" onAction="#salvarAgendamento" style="-fx-background-color: #8e44ad; -fx-text-fill: white;" text="Alterar Dados" />
+                <Button fx:id="btnSalvarAlteracoes" onAction="#salvarAgendamento" style="-fx-background-color: #8e44ad; -fx-text-fill: white;" text="Salvar Alterações" />
+                <Button fx:id="btnCancelarSelecao" onAction="#limparSelecao" text="Limpar Seleção" />
             </children>
         </HBox>
 
