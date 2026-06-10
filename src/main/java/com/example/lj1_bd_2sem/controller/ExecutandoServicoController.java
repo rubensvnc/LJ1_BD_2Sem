@@ -14,9 +14,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-import javafx.scene.media.MediaView;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import java.io.File;
@@ -24,7 +23,7 @@ import java.io.IOException;
 
 public class ExecutandoServicoController {
     @FXML private Label lblStatusServico;
-    @FXML private MediaView mediaViewVideo;
+    @FXML private ImageView imageViewGif;
     @FXML private Label lblTempoRestante;
     @FXML private ProgressBar progressServico;
 
@@ -45,7 +44,7 @@ public class ExecutandoServicoController {
                 this.duracaoTotalSegundos = servico.getDuracao();
                 this.segundosRestantes = duracaoTotalSegundos;
                 iniciarCronometro();
-                carregarVideo(servico.getNome());
+                carregarGif(servico.getNome());
             } else {
                 lblStatusServico.setText("Erro: Serviço não encontrado.");
             }
@@ -100,17 +99,23 @@ public class ExecutandoServicoController {
         lblTempoRestante.setText("Tempo restante: " + segundosRestantes + " segundos");
     }
 
-    private void carregarVideo(String nomeServico) {
-        String videoPath = "videos/" + nomeServico.toLowerCase().replace(" ", "_") + ".mp4";
-        File videoFile = new File(videoPath);
-        if (videoFile.exists()) {
-            Media media = new Media(videoFile.toURI().toString());
-            MediaPlayer mediaPlayer = new MediaPlayer(media);
-            mediaViewVideo.setMediaPlayer(mediaPlayer);
-            mediaPlayer.setAutoPlay(true);
-            mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+    private void carregarGif(String nomeServico) {
+        String nomeArquivo = nomeServico.toLowerCase().replace(" ", "_") + ".gif";
+        String resourcePath = "/videos/" + nomeArquivo;
+
+        java.net.URL resourceUrl = getClass().getResource(resourcePath);
+        if (resourceUrl != null) {
+            Image gifImage = new Image(resourceUrl.toString());
+            imageViewGif.setImage(gifImage);
+            return;
+        }
+
+        File gifFile = new File("videos/" + nomeArquivo);
+        if (gifFile.exists()) {
+            Image gifImage = new Image(gifFile.toURI().toString());
+            imageViewGif.setImage(gifImage);
         } else {
-            lblStatusServico.setText("Vídeo não encontrado para " + nomeServico);
+            lblStatusServico.setText("GIF não encontrado: " + nomeArquivo);
         }
     }
 

@@ -10,6 +10,8 @@ import com.example.lj1_bd_2sem.model.Servico;
 import com.example.lj1_bd_2sem.model.Usuario;
 import com.example.lj1_bd_2sem.util.ScreenManager;
 import com.example.lj1_bd_2sem.util.SessionManager;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,6 +19,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 public class PagamentoAtendimentoController {
     @FXML private Button btnVoltarMenu;
@@ -27,6 +30,8 @@ public class PagamentoAtendimentoController {
     @FXML private ComboBox<String> comboFormaPagamento;
     @FXML private Label lblValorServico;
     @FXML private Button btnFinalizarPagamento;
+
+    private Timeline pollingTimeline;
 
     private AgendaDAO agendaDAO = new AgendaDAO();
     private ServicoDAO servicoDAO = new ServicoDAO();
@@ -44,6 +49,8 @@ public class PagamentoAtendimentoController {
         carregarAgendamentos();
         tabelaEmAndamento.setItems(emAndamentoList);
         tabelaEmAndamento.setOnMouseClicked(e -> carregarDetalhesAgendamento());
+
+        iniciarPolling();
     }
 
     private void carregarAgendamentos() {
@@ -141,6 +148,14 @@ public class PagamentoAtendimentoController {
         alert.setTitle(titulo);
         alert.setContentText(msg);
         alert.showAndWait();
+    }
+
+    private void iniciarPolling() {
+        pollingTimeline = new Timeline(new KeyFrame(Duration.seconds(3), e -> {
+            carregarAgendamentos();
+        }));
+        pollingTimeline.setCycleCount(Timeline.INDEFINITE);
+        pollingTimeline.play();
     }
 
     @FXML
