@@ -4,52 +4,27 @@ import com.example.lj1_bd_2sem.dao.ProdutoDAO;
 import com.example.lj1_bd_2sem.dao.RemedioDAO;
 import com.example.lj1_bd_2sem.model.Produto;
 import com.example.lj1_bd_2sem.model.Remedio;
+import com.example.lj1_bd_2sem.model.Usuario;
+import com.example.lj1_bd_2sem.util.ScreenManager;
+import com.example.lj1_bd_2sem.util.SessionManager;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 public class PreencherEstoqueController {
-
-    @FXML
-    private ComboBox<String> comboTipoNegocio;
-
-    @FXML
-    private TextField txtNome;
-
-    @FXML
-    private TextField txtCodigoBarras;
-
-    @FXML
-    private TextField txtPreco;
-
-    @FXML
-    private TextField txtEstoque;
-
-    @FXML
-    private VBox boxFarmacia;
-
-    @FXML
-    private DatePicker pickerValidade;
-
-    @FXML
-    private CheckBox chkPrecedeReceita;
-
-    @FXML
-    private Button btnCancelar;
-
-    @FXML
-    private Button btnSalvar;
+    @FXML private ComboBox<String> comboTipoNegocio;
+    @FXML private TextField txtNome, txtCodigoBarras, txtPreco, txtEstoque;
+    @FXML private VBox boxFarmacia;
+    @FXML private DatePicker pickerValidade;
+    @FXML private CheckBox chkPrecedeReceita;
+    @FXML private Button btnCancelar, btnSalvar;
+    @FXML private Button btnVoltarMenu;
 
     ProdutoDAO produtoDAO = new ProdutoDAO();
     RemedioDAO remedioDAO = new RemedioDAO();
@@ -59,44 +34,46 @@ public class PreencherEstoqueController {
         boxFarmacia.setVisible(false);
         boxFarmacia.setManaged(false);
 
-        List<String> estabelecimentos = new ArrayList<>();
-        estabelecimentos.add("MERCADO");
-        estabelecimentos.add("FARMACIA");
-        ObservableList<String> opcoesEstabelecimento = FXCollections.observableArrayList(estabelecimentos);
-        comboTipoNegocio.setItems(opcoesEstabelecimento);
+        Usuario user = SessionManager.getUsuarioLogado();
+        if (user != null && user.getPerfil().equals("PROFISSIONAL") && user.getTipoProfissional() != null) {
+            String tipo = user.getTipoProfissional();
+            comboTipoNegocio.setItems(FXCollections.observableArrayList(tipo));
+            comboTipoNegocio.setValue(tipo);
+            comboTipoNegocio.setDisable(true);
+            handleTipoNegocioChange();
+        } else {
+            comboTipoNegocio.setItems(FXCollections.observableArrayList("MERCADO", "FARMACIA"));
+        }
+    }
+
+    @FXML
+    public void voltarMenu() {
+        Stage stage = (Stage) btnVoltarMenu.getScene().getWindow();
+        ScreenManager.trocarTela("/menu_profissional.fxml", stage, "Menu Profissional");
     }
 
     @FXML
     public void handleTipoNegocioChange() {
         if (comboTipoNegocio.getValue() == null) return;
-
-        if (comboTipoNegocio.getValue().equals("FARMACIA")){
-            boxFarmacia.setVisible(true);
-            boxFarmacia.setManaged(true);
-        } else {
-            boxFarmacia.setVisible(false);
-            boxFarmacia.setManaged(false);
-        }
+        boolean isFarmacia = comboTipoNegocio.getValue().equals("FARMACIA");
+        boxFarmacia.setVisible(isFarmacia);
+        boxFarmacia.setManaged(isFarmacia);
     }
 
     @FXML
     public void handleCancelar() {
-        txtNome.setText("");
-        txtCodigoBarras.setText("");
-        txtPreco.setText("");
-        txtEstoque.setText("");
+        txtNome.clear();
+        txtCodigoBarras.clear();
+        txtPreco.clear();
+        txtEstoque.clear();
         pickerValidade.setValue(null);
         chkPrecedeReceita.setSelected(false);
     }
 
     @FXML
     public void handleSalvar() {
-        String tipo;
         if (comboTipoNegocio.getValue() == null) return;
-
-        if (comboTipoNegocio.getValue().equals("FARMACIA")) tipo = "FARMACIA";
-        else tipo = "MERCADO";
-
+        String tipo = comboTipoNegocio.getValue();
         Produto p = new Produto();
         p.setCodigoBarras(txtCodigoBarras.getText());
         p.setNome(txtNome.getText());
@@ -104,19 +81,22 @@ public class PreencherEstoqueController {
         p.setTipo(tipo);
         p.setQtd(Integer.parseInt(txtEstoque.getText()));
         p.setValidade(pickerValidade.getValue());
-
-        try{
+        try {
             int id = produtoDAO.salvarProduto(p);
-
-            if (tipo.equals("FARMACIA")){
+            if (tipo.equals("FARMACIA")) {
                 Remedio r = new Remedio();
                 r.setIdProduto(id);
                 r.setUsaReceita(chkPrecedeReceita.isSelected());
                 remedioDAO.inserirRemedio(r);
             }
-        } catch (SQLException e){
-            e.printStackTrace();
-        }
+            mostrarAlerta("Produto salvo com sucesso!");
+            handleCancelar();
+        } catch (SQLException e) { e.printStackTrace(); mostrarAlerta("Erro ao salvar."); }
+    }
 
+    private void mostrarAlerta(String msg) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setContentText(msg);
+        alert.showAndWait();
     }
 }

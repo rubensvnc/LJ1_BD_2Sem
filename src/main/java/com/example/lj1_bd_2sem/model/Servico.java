@@ -50,4 +50,9 @@ public class Servico {
     public void setDuracao(Integer duracao) {
         this.duracao = duracao;
     }
+
+    @Override
+    public String toString() {
+        return nome;
+    }
 }

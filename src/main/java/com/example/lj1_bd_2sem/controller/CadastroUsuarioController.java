@@ -5,116 +5,114 @@ import com.example.lj1_bd_2sem.dao.UsuarioDAO;
 import com.example.lj1_bd_2sem.model.Cliente;
 import com.example.lj1_bd_2sem.model.Usuario;
 import com.example.lj1_bd_2sem.util.ScreenManager;
+import com.example.lj1_bd_2sem.util.SessionManager;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Hyperlink;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class CadastroUsuarioController {
-
-    @FXML
-    private TextField txtNome;
-
-    @FXML
-    private TextField txtLogin;
-
-    @FXML
-    private PasswordField txtSenha;
-
-    @FXML
-    private ComboBox<String> comboPerfil;
-
-    @FXML
-    private VBox boxClienteExclusivo;
-
-    @FXML
-    private TextField txtBalanca;
-
-    @FXML
-    private Button btnCadastrar;
-
-    @FXML
-    private Hyperlink linkLogin;
+    @FXML private TextField txtNome, txtLogin, txtBalanca;
+    @FXML private PasswordField txtSenha;
+    @FXML private ComboBox<String> comboPerfil, comboTipoProfissional;
+    @FXML private VBox boxClienteExclusivo, boxProfissionalExclusivo;
+    @FXML private Button btnCadastrar;
+    @FXML private Hyperlink linkLogin;
 
     private final UsuarioDAO usuarioDAO = new UsuarioDAO();
     private final ClienteDAO clienteDAO = new ClienteDAO();
-
 
     @FXML
     public void initialize() {
         boxClienteExclusivo.setManaged(false);
         boxClienteExclusivo.setVisible(false);
+        boxProfissionalExclusivo.setManaged(false);
+        boxProfissionalExclusivo.setVisible(false);
 
-        List<String> enumPerfis = new ArrayList<>();
-        enumPerfis.add("ADM");
-        enumPerfis.add("PROFISSIONAL");
-        enumPerfis.add("CLIENTE");
-
-        ObservableList<String> opcoesCbPerfis = FXCollections.observableArrayList(enumPerfis);
-        comboPerfil.setItems(opcoesCbPerfis);
+        comboPerfil.setItems(FXCollections.observableArrayList("ADM", "PROFISSIONAL", "CLIENTE"));
+        comboTipoProfissional.setItems(FXCollections.observableArrayList("MERCADO", "FARMACIA", "SALAO"));
     }
 
     @FXML
     public void handlePerfilChange() {
-        if (comboPerfil.getValue() != null){
-            if (comboPerfil.getValue().equals("CLIENTE")){
-                boxClienteExclusivo.setManaged(true);
-                boxClienteExclusivo.setVisible(true);
-            }
+        String perfil = comboPerfil.getValue();
+        if (perfil == null) return;
+        if (perfil.equals("CLIENTE")) {
+            boxClienteExclusivo.setManaged(true);
+            boxClienteExclusivo.setVisible(true);
+            boxProfissionalExclusivo.setManaged(false);
+            boxProfissionalExclusivo.setVisible(false);
+        } else if (perfil.equals("PROFISSIONAL")) {
+            boxProfissionalExclusivo.setManaged(true);
+            boxProfissionalExclusivo.setVisible(true);
+            boxClienteExclusivo.setManaged(false);
+            boxClienteExclusivo.setVisible(false);
+        } else {
+            boxClienteExclusivo.setManaged(false);
+            boxClienteExclusivo.setVisible(false);
+            boxProfissionalExclusivo.setManaged(false);
+            boxProfissionalExclusivo.setVisible(false);
         }
     }
 
     @FXML
     public void handleCadastrar() {
-        String nome = txtNome.getText();
-        String login = txtLogin.getText();
+        String nome = txtNome.getText().trim();
+        String login = txtLogin.getText().trim();
         String senha = txtSenha.getText();
-        String tipoPerfil = comboPerfil.getValue();
-
-        Stage stage = (Stage) linkLogin.getScene().getWindow();
-        if (nome != null){
-            if (login != null){
-                if (senha != null){
-                    if (tipoPerfil != null){
-                        Usuario u = new Usuario();
-                        u.setNome(nome);
-                        u.setLogin(login);
-                        u.setSenha(senha);
-                        u.setPerfil(tipoPerfil);
-
-                        try{
-                            int id = usuarioDAO.registrarUsuario(u);
-                            if (tipoPerfil.equals("CLIENTE")){
-                                Cliente c = new Cliente();
-                                c.setId(id);
-                                c.setBalanca(Double.parseDouble(txtBalanca.getText()));
-
-                                ScreenManager.trocarTela("/home.fxml", stage, "Home");
-                            } else if(tipoPerfil.equals("ADM")){
-                                ScreenManager.trocarTela("/dashboard.fxml", stage, "Dashboard");
-                            }
-
-                        } catch (SQLException e){
-                            e.printStackTrace();
-                        }
-                    }
-                }
+        String perfil = comboPerfil.getValue();
+        if (nome.isEmpty() || login.isEmpty() || senha.isEmpty() || perfil == null) {
+            mostrarErro("Preencha todos os campos obrigatórios.");
+            return;
+        }
+        Usuario u = new Usuario();
+        u.setNome(nome);
+        u.setLogin(login);
+        u.setSenha(senha);
+        u.setPerfil(perfil);
+        if (perfil.equals("PROFISSIONAL")) {
+            u.setTipoProfissional(comboTipoProfissional.getValue());
+            if (u.getTipoProfissional() == null) {
+                mostrarErro("Selecione o tipo de profissional.");
+                return;
             }
+        }
+        Stage stage = (Stage) btnCadastrar.getScene().getWindow();
+        try {
+            int id = usuarioDAO.registrarUsuario(u);
+            u.setId(id);
+            if (perfil.equals("CLIENTE")) {
+                double balanca;
+                try {
+                    balanca = Double.parseDouble(txtBalanca.getText());
+                } catch (NumberFormatException e) {
+                    mostrarErro("Saldo inválido.");
+                    return;
+                }
+                Cliente c = new Cliente();
+                c.setId(id);
+                c.setBalanca(balanca);
+                clienteDAO.registrarCliente(c);
+            }
+            SessionManager.setUsuarioLogado(u);
+            if (perfil.equals("CLIENTE")) ScreenManager.trocarTela("/home.fxml", stage, "Home");
+            else if (perfil.equals("ADM")) ScreenManager.trocarTela("/dashboard.fxml", stage, "Dashboard");
+            else if (perfil.equals("PROFISSIONAL")) ScreenManager.trocarTela("/preencher_estoque.fxml", stage, "Estoque");
+        } catch (SQLException e) {
+            mostrarErro("Erro ao cadastrar: " + e.getMessage());
         }
     }
 
-    @FXML
-    public void irParaTelaLogin() {
-        // Método vazio
+    @FXML public void irParaTelaLogin() {
+        Stage stage = (Stage) linkLogin.getScene().getWindow();
+        ScreenManager.trocarTela("/login.fxml", stage, "Login");
+    }
+
+    private void mostrarErro(String msg) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setContentText(msg);
+        alert.showAndWait();
     }
 }

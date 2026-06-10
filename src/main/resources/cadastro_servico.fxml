@@ -18,6 +18,7 @@
         <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
     </padding>
     <children>
+        <Button fx:id="btnVoltarMenu" onAction="#voltarMenu" text="Voltar ao Menu" />
         <Label text="Gerenciamento de Serviços (Salão de Beleza)">
             <font>
                 <Font name="System Bold" size="20.0" />

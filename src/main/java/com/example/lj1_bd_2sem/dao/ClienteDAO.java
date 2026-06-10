@@ -2,27 +2,49 @@ package com.example.lj1_bd_2sem.dao;
 
 import com.example.lj1_bd_2sem.DatabaseConnection;
 import com.example.lj1_bd_2sem.model.Cliente;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class ClienteDAO {
-
-    public void registrarCliente(Cliente c) throws SQLException{
-        String sql = "INSERT INTO cliente (id, balanca) " +
-                "VALUES (?, ?)";
-
+    public void registrarCliente(Cliente c) throws SQLException {
+        String sql = "INSERT INTO cliente (id, balanca) VALUES (?, ?)";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-
             stmt.setInt(1, c.getId());
             stmt.setDouble(2, c.getBalanca());
-
             stmt.executeUpdate();
-        } catch (SQLException e) {
-            System.err.println("Erro ao salvar cliente: " + e.getMessage());
-            throw e;
+        }
+    }
+
+    public Cliente buscarPorId(int id) {
+        String sql = "SELECT * FROM cliente WHERE id = ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, id);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                Cliente c = new Cliente();
+                c.setId(rs.getInt("id"));
+                c.setBalanca(rs.getDouble("balanca"));
+                return c;
+            }
+        } catch (SQLException e) { e.printStackTrace(); }
+        return null;
+    }
+
+    public void atualizarSaldo(int clienteId, double novoSaldo) {
+        String sql = "UPDATE cliente SET balanca = ? WHERE id = ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setDouble(1, novoSaldo);
+            pstmt.setInt(2, clienteId);
+            pstmt.executeUpdate();
+        } catch (SQLException e) { e.printStackTrace(); }
+    }
+
+    public void recarregarSaldo(int clienteId, double valor) {
+        Cliente c = buscarPorId(clienteId);
+        if (c != null) {
+            atualizarSaldo(clienteId, c.getBalanca() + valor);
         }
     }
 }

@@ -19,6 +19,7 @@
         <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
     </padding>
     <children>
+        <Button fx:id="btnVoltarMenu" onAction="#voltarMenu" text="Voltar ao Menu" />
         <VBox spacing="5.0">
             <children>
                 <Label text="Atendimentos Em Andamento &amp; Pagamento">

@@ -19,6 +19,7 @@
         <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
     </padding>
     <children>
+        <Button fx:id="btnVoltarMenu" onAction="#voltarMenu" text="Voltar ao Menu" />
         <Label text="Cadastro de Produtos / Entrada de Estoque">
             <font>
                 <Font name="System Bold" size="20.0" />
