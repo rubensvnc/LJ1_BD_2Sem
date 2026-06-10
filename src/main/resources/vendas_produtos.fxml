@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="600.0" prefWidth="1000.0" spacing="15.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.lj1_bd_2sem.controller.VendasProdutosController">
+<VBox prefHeight="600.0" prefWidth="1000.0" spacing="15.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.lj1_bd_2sem.controller.VendasProdutosController">
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
@@ -22,11 +22,17 @@
                 <Font name="System Bold" size="20.0" />
             </font>
         </Label>
+      <HBox prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Label text="Selecione o estabelecimento:  " />
+            <ComboBox fx:id="comboEstabelecimento" onAction="#handleTrocaEstabelecimento" prefWidth="150.0" promptText="Estabelecimento" />
+         </children>
+      </HBox>
 
         <HBox spacing="20.0" VBox.vgrow="ALWAYS">
             <children>
 
-                <VBox spacing="10.0" HBox.hgrow="ALWAYS" prefWidth="480.0">
+                <VBox prefWidth="480.0" spacing="10.0" HBox.hgrow="ALWAYS">
                     <children>
                         <Label text="Itens disponíveis:">
                             <font>
@@ -34,14 +40,14 @@
                             </font>
                         </Label>
 
-                        <ScrollPane fitToHeight="true" fitToWidth="true" VBox.vgrow="ALWAYS" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED">
+                        <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED" VBox.vgrow="ALWAYS">
                             <content>
-                                <TableView fx:id="tabelaCarrinho" minHeight="300.0">
+                                <TableView fx:id="tabelaEstoque" minHeight="300.0">
                                     <columns>
+                                        <TableColumn fx:id="colCodigoBarras" prefWidth="200.0" text="Codigo Barras" />
                                         <TableColumn fx:id="colProduto" prefWidth="200.0" text="Produto" />
                                         <TableColumn fx:id="colQtd" prefWidth="60.0" text="Qtd" />
                                         <TableColumn fx:id="colPrecoUnitario" prefWidth="100.0" text="Preço Unit." />
-                                        <TableColumn fx:id="colTotalItem" prefWidth="100.0" text="Total" />
                                     </columns>
                                     <columnResizePolicy>
                                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -52,7 +58,7 @@
                     </children>
                 </VBox>
 
-                <VBox spacing="10.0" HBox.hgrow="ALWAYS" prefWidth="480.0">
+                <VBox prefWidth="480.0" spacing="10.0" HBox.hgrow="ALWAYS">
                     <children>
                         <Label text="Carrinho:">
                             <font>
@@ -75,17 +81,19 @@
                                     </children>
                                 </VBox>
                                 <Button fx:id="btnAdicionar" mnemonicParsing="false" onAction="#adicionarItem" style="-fx-background-color: #27ae60; -fx-text-fill: white;" text="Adicionar Item" />
+                                <Button fx:id="btnRemover" managed="false" mnemonicParsing="false" onAction="#removerItem" style="-fx-background-color: #27ae60; -fx-text-fill: white;" text="Remover Item" visible="false" />
                             </children>
                         </HBox>
 
-                        <ScrollPane fitToHeight="true" fitToWidth="true" VBox.vgrow="ALWAYS" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED">
+                        <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED" VBox.vgrow="ALWAYS">
                             <content>
-                                <TableView fx:id="tabelaCarrinho1" minHeight="300.0">
+                                <TableView fx:id="tabelaCarrinho" minHeight="300.0">
                                     <columns>
-                                        <TableColumn fx:id="colProduto1" prefWidth="200.0" text="Produto" />
-                                        <TableColumn fx:id="colQtd1" prefWidth="60.0" text="Qtd" />
-                                        <TableColumn fx:id="colPrecoUnitario1" prefWidth="100.0" text="Preço Unit." />
-                                        <TableColumn fx:id="colTotalItem1" prefWidth="100.0" text="Total" />
+                                        <TableColumn fx:id="colCodigoBarrasCarrinho" prefWidth="200.0" text="Codigo Barras" />
+                                        <TableColumn fx:id="colProdutoCarrinho" prefWidth="200.0" text="Produto" />
+                                        <TableColumn fx:id="colQtdCarrinho" prefWidth="60.0" text="Qtd" />
+                                        <TableColumn fx:id="colPrecoUnitarioCarrinho" prefWidth="100.0" text="Preço Unit." />
+                                        <TableColumn fx:id="colTotalItemCarrinho" prefWidth="100.0" text="Total" />
                                     </columns>
                                     <columnResizePolicy>
                                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

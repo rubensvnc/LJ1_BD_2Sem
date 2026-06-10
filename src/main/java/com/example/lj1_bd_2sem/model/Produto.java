@@ -1,26 +1,31 @@
 package com.example.lj1_bd_2sem.model;
 
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 public class Produto {
     private Integer id;
     private String codigoBarras;
     private String nome;
     private Double precoBase;
-    private LocalDateTime validade;
+    private LocalDate validade;
+    private String tipo;
+    private Integer qtd;
 
     // Construtor vazio
     public Produto() {
     }
 
     // Construtor completo
-    public Produto(Integer id, String codigoBarras, String nome, Double precoBase, LocalDateTime validade) {
+    public Produto(Integer id, String codigoBarras, String nome, Double precoBase,
+                   LocalDate validade, String tipo, Integer qtd) {
         this.id = id;
         this.codigoBarras = codigoBarras;
         this.nome = nome;
         this.precoBase = precoBase;
         this.validade = validade;
+        this.tipo = tipo;
+        this.qtd = qtd;
     }
 
     // Getters e Setters
@@ -56,11 +61,23 @@ public class Produto {
         this.precoBase = precoBase;
     }
 
-    public LocalDateTime getValidade() {
+    public LocalDate getValidade() {
         return validade;
     }
 
-    public void setValidade(LocalDateTime validade) {
+    public void setValidade(LocalDate validade) {
         this.validade = validade;
+    }
+
+    public String getTipo() { return tipo; }
+
+    public void setTipo(String tipo) { this.tipo = tipo; }
+
+    public Integer getQtd() {
+        return qtd;
+    }
+
+    public void setQtd(Integer qtd) {
+        this.qtd = qtd;
     }
 }

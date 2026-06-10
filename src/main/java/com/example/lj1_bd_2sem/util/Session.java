@@ -1,13 +1,15 @@
 package com.example.lj1_bd_2sem.util;
 
-public class Session {
-    private static User currentUser = null;
+import com.example.lj1_bd_2sem.model.Usuario;
 
-    public static User getCurrentUser() {
+public class Session {
+    private static Usuario currentUser = null;
+
+    public static Usuario getCurrentUser() {
         return currentUser;
     }
 
-    public static void setCurrentUser(User user) {
+    public static void setCurrentUser(Usuario user) {
         currentUser = user;
     }
 

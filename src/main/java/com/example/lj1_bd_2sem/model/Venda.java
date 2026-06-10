@@ -6,19 +6,17 @@ public class Venda {
     private Integer produtoId;
     private Integer qtd;
     private Double precoVenda;
-    private String estabelecimento; // MERCADO, FARMACIA
 
     // Construtor vazio
     public Venda() {
     }
 
     // Construtor completo
-    public Venda(Integer id, Integer produtoId, Integer qtd, Double precoVenda, String estabelecimento) {
+    public Venda(Integer id, Integer produtoId, Integer qtd, Double precoVenda) {
         this.id = id;
         this.produtoId = produtoId;
         this.qtd = qtd;
         this.precoVenda = precoVenda;
-        this.estabelecimento = estabelecimento;
     }
 
     // Getters e Setters
@@ -52,13 +50,5 @@ public class Venda {
 
     public void setPrecoVenda(Double precoVenda) {
         this.precoVenda = precoVenda;
-    }
-
-    public String getEstabelecimento() {
-        return estabelecimento;
-    }
-
-    public void setEstabelecimento(String estabelecimento) {
-        this.estabelecimento = estabelecimento;
     }
 }
