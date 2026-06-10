@@ -25,6 +25,53 @@ public class AgendaDAO {
         }
     }
 
+    public boolean isPago(int agendaId) {
+        String sql = "SELECT pago FROM agenda WHERE id = ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, agendaId);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) return rs.getBoolean("pago");
+        } catch (SQLException e) { e.printStackTrace(); }
+        return false;
+    }
+
+    public void atualizarPago(int agendaId, boolean pago) {
+        String sql = "UPDATE agenda SET pago = ? WHERE id = ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setBoolean(1, pago);
+            stmt.setInt(2, agendaId);
+            stmt.executeUpdate();
+        } catch (SQLException e) { e.printStackTrace(); }
+    }
+
+    public List<AgendamentoDTO> listarConcluidosNaoPagosPorProfissional(int profissionalId) {
+        List<AgendamentoDTO> lista = new ArrayList<>();
+        String sql = "SELECT a.id, a.hora_agendado, u.nome as cliente_nome, p.nome as profissional_nome, s.nome as servico_nome, a.status_conclusao " +
+                "FROM agenda a " +
+                "JOIN usuario u ON a.cliente_id = u.id " +
+                "JOIN usuario p ON a.profissional_id = p.id " +
+                "JOIN servico s ON a.servico_id = s.id " +
+                "WHERE a.profissional_id = ? AND a.status_conclusao = 'CONCLUIDO' AND a.pago = FALSE";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, profissionalId);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                AgendamentoDTO dto = new AgendamentoDTO();
+                dto.setId(rs.getInt("id"));
+                dto.setHoraAgendado(rs.getTime("hora_agendado").toLocalTime());
+                dto.setClienteNome(rs.getString("cliente_nome"));
+                dto.setProfissionalNome(rs.getString("profissional_nome"));
+                dto.setServicoNome(rs.getString("servico_nome"));
+                dto.setStatusConclusao(rs.getString("status_conclusao"));
+                lista.add(dto);
+            }
+        } catch (SQLException e) { e.printStackTrace(); }
+        return lista;
+    }
+
     public void inserir(Agenda agenda) {
         String sql = "INSERT INTO agenda (cliente_id, profissional_id, servico_id, hora_agendado, status_conclusao) VALUES (?, ?, ?, ?, ?)";
         try (Connection conn = DatabaseConnection.getConnection();

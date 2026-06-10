@@ -35,7 +35,10 @@ public class HomeController {
     @FXML
     public void recarregarSaldo() {
         Usuario user = SessionManager.getUsuarioLogado();
-        if (user == null || !user.getPerfil().equals("CLIENTE")) return;
+        if (user == null || !user.getPerfil().equals("CLIENTE")) {
+            mostrarAlerta("Erro: Usuário não é cliente.");
+            return;
+        }
         TextInputDialog dialog = new TextInputDialog();
         dialog.setTitle("Recarregar Saldo");
         dialog.setHeaderText("Digite o valor a adicionar (use ponto ou vírgula):");
@@ -44,13 +47,21 @@ public class HomeController {
             String valorStr = result.get().trim().replace(",", ".");
             try {
                 double valor = Double.parseDouble(valorStr);
-                if (valor > 0) {
-                    clienteDAO.recarregarSaldo(user.getId(), valor);
-                    atualizarSaldo();
-                    mostrarAlerta("Saldo recarregado com sucesso!");
-                } else {
+                if (valor <= 0) {
                     mostrarAlerta("Valor deve ser positivo.");
+                    return;
                 }
+                // Busca o cliente atual
+                Cliente cliente = clienteDAO.buscarPorId(user.getId());
+                if (cliente == null) {
+                    mostrarAlerta("Cliente não encontrado no sistema.");
+                    return;
+                }
+                double novoSaldo = cliente.getBalanca() + valor;
+                clienteDAO.atualizarSaldo(user.getId(), novoSaldo);
+                // Atualiza a sessão? O cliente não tem o saldo na sessão, mas atualizamos o label
+                atualizarSaldo();
+                mostrarAlerta("Recarga realizada! Novo saldo: R$ " + String.format("%.2f", novoSaldo));
             } catch (NumberFormatException e) {
                 mostrarAlerta("Valor inválido. Use números, ponto ou vírgula.");
             }

@@ -1,19 +1,26 @@
 package com.example.lj1_bd_2sem.controller;
 
 import com.example.lj1_bd_2sem.dao.AgendaDAO;
+import com.example.lj1_bd_2sem.dao.ClienteDAO;
 import com.example.lj1_bd_2sem.dao.ServicoDAO;
 import com.example.lj1_bd_2sem.model.Agenda;
+import com.example.lj1_bd_2sem.model.Cliente;
 import com.example.lj1_bd_2sem.model.Servico;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 import java.io.File;
+import java.io.IOException;
 
 public class ExecutandoServicoController {
     @FXML private Label lblStatusServico;
@@ -25,14 +32,14 @@ public class ExecutandoServicoController {
     private int duracaoTotalSegundos;
     private int segundosRestantes;
     private int agendaId;
+    private AgendaDAO agendaDAO = new AgendaDAO();
+    private ClienteDAO clienteDAO = new ClienteDAO();
+    private ServicoDAO servicoDAO = new ServicoDAO();
 
-    // Método alterado para receber apenas o agendaId
     public void setAgendamento(int agendaId) {
         this.agendaId = agendaId;
-        AgendaDAO agendaDAO = new AgendaDAO();
         Agenda agenda = agendaDAO.buscarPorId(agendaId);
         if (agenda != null) {
-            ServicoDAO servicoDAO = new ServicoDAO();
             Servico servico = servicoDAO.buscarPorId(agenda.getServicoId());
             if (servico != null) {
                 this.duracaoTotalSegundos = servico.getDuracao();
@@ -60,15 +67,35 @@ public class ExecutandoServicoController {
             } else {
                 timeline.stop();
                 lblStatusServico.setText("Serviço Concluído!");
-                AgendaDAO agendaDAO = new AgendaDAO();
                 agendaDAO.atualizarStatus(agendaId, "CONCLUIDO");
+                verificarSaldoERedirecionarCliente();
             }
         }));
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
     }
 
-    // Exibe apenas segundos restantes
+    private void verificarSaldoERedirecionarCliente() {
+        Agenda agenda = agendaDAO.buscarPorId(agendaId);
+        if (agenda == null) return;
+        Cliente cliente = clienteDAO.buscarPorId(agenda.getClienteId());
+        Servico servico = servicoDAO.buscarPorId(agenda.getServicoId());
+        double valorServico = (servico != null) ? servico.getValor() : 0;
+        boolean insuficiente = (cliente == null || cliente.getBalanca() < valorServico);
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/aguardando_pagamento.fxml"));
+            Parent root = loader.load();
+            AguardandoPagamentoController controller = loader.getController();
+            controller.setAgendamento(agendaId, insuficiente);
+            Stage stage = (Stage) lblStatusServico.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Aguardando Pagamento");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
     private void atualizarLabelTempo() {
         lblTempoRestante.setText("Tempo restante: " + segundosRestantes + " segundos");
     }

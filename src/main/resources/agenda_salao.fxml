@@ -25,6 +25,7 @@
                 <Font name="System Bold" size="20.0" />
             </font>
         </Label>
+        <Button fx:id="btnVoltarMenu" onAction="#voltarMenu" text="Voltar ao Menu" />
 
         <GridPane hgap="10.0" vgap="10.0">
             <children>

@@ -7,18 +7,30 @@ import com.example.lj1_bd_2sem.dto.AgendamentoDTO;
 import com.example.lj1_bd_2sem.model.Agenda;
 import com.example.lj1_bd_2sem.model.Servico;
 import com.example.lj1_bd_2sem.model.Usuario;
+import com.example.lj1_bd_2sem.util.ScreenManager;
+import com.example.lj1_bd_2sem.util.SessionManager;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
+import javafx.util.Duration;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 public class AgendaSalaoController {
 
+    @FXML private Button btnVoltarMenu;
     @FXML private TextField txtClienteId;
     @FXML private ComboBox<Usuario> comboProfissionais;
     @FXML private ComboBox<String> comboStatus;
@@ -40,6 +52,7 @@ public class AgendaSalaoController {
     private ObservableList<AgendamentoDTO> agendaList = FXCollections.observableArrayList();
     private ObservableList<Usuario> profissionaisList = FXCollections.observableArrayList();
     private ObservableList<Servico> servicosList = FXCollections.observableArrayList();
+    private Timeline pollingPagamentoTimeline;
 
     @FXML
     public void initialize() {
@@ -53,6 +66,7 @@ public class AgendaSalaoController {
         carregarServicos();
         carregarStatus();
         carregarAgenda();
+        iniciarPollingPagamentoPendente();
 
         comboProfissionais.setItems(profissionaisList);
         comboServicos.setItems(servicosList);
@@ -73,6 +87,33 @@ public class AgendaSalaoController {
                 limparCampos();
             }
         });
+    }
+
+    private void iniciarPollingPagamentoPendente() {
+        pollingPagamentoTimeline = new Timeline(new KeyFrame(Duration.seconds(3), e -> {
+            Usuario profissional = SessionManager.getUsuarioLogado();
+            if (profissional != null && "PROFISSIONAL".equals(profissional.getPerfil()) && "SALAO".equals(profissional.getTipoProfissional())) {
+                List<AgendamentoDTO> pendentes = agendaDAO.listarConcluidosNaoPagosPorProfissional(profissional.getId());
+                if (!pendentes.isEmpty()) {
+                    pollingPagamentoTimeline.stop();
+                    abrirTelaPagamento(pendentes.get(0).getId());
+                }
+            }
+        }));
+        pollingPagamentoTimeline.setCycleCount(Timeline.INDEFINITE);
+        pollingPagamentoTimeline.play();
+    }
+
+    private void abrirTelaPagamento(int agendaId) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/pagamento_atendimento.fxml"));
+            Parent root = loader.load();
+            PagamentoAtendimentoController controller = loader.getController();
+            controller.setAgendamentoId(agendaId);
+            Stage stage = (Stage) tabelaAgenda.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Pagamento de Atendimento");
+        } catch (IOException ex) { ex.printStackTrace(); }
     }
 
     private void setCamposEditaveis(boolean editavel) {
@@ -201,5 +242,11 @@ public class AgendaSalaoController {
         alert.setHeaderText(null);
         alert.setContentText(mensagem);
         alert.showAndWait();
+    }
+
+    @FXML
+    public void voltarMenu() {
+        Stage stage = (Stage) btnVoltarMenu.getScene().getWindow();
+        ScreenManager.trocarTela("/menu_profissional.fxml", stage, "Menu Profissional");
     }
 }

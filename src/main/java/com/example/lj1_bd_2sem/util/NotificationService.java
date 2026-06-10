@@ -36,6 +36,9 @@ public class NotificationService {
         this.primaryStage = stage;
         if (pollingTimeline != null) pollingTimeline.stop();
 
+        // Verificação imediata: se já existir um agendamento EM ANDAMENTO, abrir tela de execução
+        verificarAgendamentoEmAndamento();
+
         pollingTimeline = new Timeline(new KeyFrame(Duration.seconds(3), e -> {
             Usuario cliente = SessionManager.getUsuarioLogado();
             if (cliente == null || !"CLIENTE".equals(cliente.getPerfil())) return;
@@ -48,15 +51,30 @@ public class NotificationService {
 
                 if (lastStatus == null) {
                     lastKnownStatus.put(id, currentStatus);
-                } else if (!lastStatus.equals(currentStatus) && "EM ANDAMENTO".equals(currentStatus)) {
+                } else if (!lastStatus.equals(currentStatus)) {
                     lastKnownStatus.put(id, currentStatus);
-                    Platform.runLater(() -> abrirTelaExecucao(id));
-                    break;
+                    if ("EM ANDAMENTO".equals(currentStatus)) {
+                        Platform.runLater(() -> abrirTelaExecucao(id));
+                        break;
+                    }
                 }
             }
         }));
         pollingTimeline.setCycleCount(Timeline.INDEFINITE);
         pollingTimeline.play();
+    }
+
+    private void verificarAgendamentoEmAndamento() {
+        Usuario cliente = SessionManager.getUsuarioLogado();
+        if (cliente != null && "CLIENTE".equals(cliente.getPerfil())) {
+            List<AgendamentoDTO> agendamentos = agendaDAO.listarPorCliente(cliente.getId());
+            for (AgendamentoDTO dto : agendamentos) {
+                if ("EM ANDAMENTO".equals(dto.getStatusConclusao())) {
+                    Platform.runLater(() -> abrirTelaExecucao(dto.getId()));
+                    break;
+                }
+            }
+        }
     }
 
     public void stopPolling() {
@@ -72,7 +90,6 @@ public class NotificationService {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/executando_servico.fxml"));
             Parent root = loader.load();
             ExecutandoServicoController controller = loader.getController();
-            // Agora passamos apenas o agendaId
             controller.setAgendamento(agendaId);
             primaryStage.setScene(new Scene(root));
             primaryStage.setTitle("Executando Serviço");

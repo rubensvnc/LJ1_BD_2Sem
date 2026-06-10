@@ -97,9 +97,14 @@ public class CadastroUsuarioController {
                 clienteDAO.registrarCliente(c);
             }
             SessionManager.setUsuarioLogado(u);
-            if (perfil.equals("CLIENTE")) ScreenManager.trocarTela("/home.fxml", stage, "Home");
-            else if (perfil.equals("ADM")) ScreenManager.trocarTela("/dashboard.fxml", stage, "Dashboard");
-            else if (perfil.equals("PROFISSIONAL")) ScreenManager.trocarTela("/preencher_estoque.fxml", stage, "Estoque");
+            if (perfil.equals("CLIENTE")) {
+                ScreenManager.trocarTela("/home.fxml", stage, "Home");
+            } else if (perfil.equals("ADM")) {
+                ScreenManager.trocarTela("/dashboard.fxml", stage, "Dashboard");
+            } else if (perfil.equals("PROFISSIONAL")) {
+                // Redireciona para o menu profissional unificado
+                ScreenManager.trocarTela("/menu_profissional.fxml", stage, "Menu Profissional");
+            }
         } catch (SQLException e) {
             mostrarErro("Erro ao cadastrar: " + e.getMessage());
         }

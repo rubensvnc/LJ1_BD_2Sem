@@ -37,10 +37,12 @@ public class ClienteDAO {
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setDouble(1, novoSaldo);
             pstmt.setInt(2, clienteId);
-            pstmt.executeUpdate();
-        } catch (SQLException e) { e.printStackTrace(); }
+            int rows = pstmt.executeUpdate();
+            System.out.println("Atualização de saldo: " + rows + " linha(s) afetada(s) para cliente " + clienteId + " -> " + novoSaldo);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
-
     public void recarregarSaldo(int clienteId, double valor) {
         Cliente c = buscarPorId(clienteId);
         if (c != null) {

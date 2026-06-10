@@ -151,4 +151,10 @@ public class AgendamentoClienteController {
         alert.setContentText(mensagem);
         alert.showAndWait();
     }
+
+    @FXML
+    public void voltarHome() {
+        Stage stage = (Stage) tabelaMeusAgendamentos.getScene().getWindow();
+        ScreenManager.trocarTela("/home.fxml", stage, "Home");
+    }
 }

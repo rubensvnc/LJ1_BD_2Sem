@@ -24,6 +24,7 @@
             <Label fx:id="lblSaldo" text="Saldo: R$ 0,00" textFill="#2c3e50">
                 <font><Font name="System Bold" size="14.0" /></font>
             </Label>
+            <Button fx:id="btnVoltarHome" onAction="#voltarHome" text="Voltar para Home" />
         </HBox>
         <VBox spacing="5.0">
             <Label text="Área do Cliente - Agendar Serviço">
