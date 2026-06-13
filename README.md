@@ -2,8 +2,8 @@
 
 Sistema integrado de gestão para **Salão de Beleza**, **Mercado** e **Farmácia**, desenvolvido em Java com JavaFX. Permite a operação simultânea de múltiplas instâncias (cliente, profissional, administrador) com sincronização em **tempo real via polling**, controle de saldo do cliente, cadastro de produtos/serviços e fluxo completo de pagamentos.
 
-[📘 Manual do Usuário](./MANUAL_USUARIO.md)  
-[🛠️ Manual de Instalação](./MANUAL_INSTALACAO.md)
+[📘 Manual do Usuário](/docs/MANUAL_USUARIO.md)  
+[🛠️ Manual de Instalação](/docs/MANUAL_INSTALACAO.md)
 
 ---
 
