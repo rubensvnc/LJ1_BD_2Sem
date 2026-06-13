@@ -92,7 +92,7 @@ mysql_secure_installation
 
 2. Conecte-se com o usuário `root` e a senha definida.
 
-3. Execute o script DDL completo fornecido no projeto: <link_aqui>
+3. Execute o schema completo fornecido no projeto: [SCHEMA](/docs/banco_dados/ljbd.sql)
    
    
 
