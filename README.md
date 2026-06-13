@@ -13,14 +13,10 @@ Sistema integrado de gestão para **Salão de Beleza**, **Mercado** e **Farmáci
 - [Técnicas e Padrões de Projeto](#técnicas-e-padrões-de-projeto)
 - [Visão Geral do Sistema](#visão-geral-do-sistema)
 - [Funcionalidades Principais](#funcionalidades-principais)
-- [Estrutura do Projeto](#estrutura-do-projeto)
-- [Como Executar](#como-executar)
-- [Contribuição](#contribuição)
-- [Licença](#licença)
 
 ---
 
-## 🧰 Tecnologias Utilizadas
+## 🧰 Tecnologias Utilizadas <a id="tecnologias-utilizadas"></a>
 
 | Tecnologia       | Versão | Finalidade                          |
 |-----------------|--------|--------------------------------------|
@@ -32,7 +28,7 @@ Sistema integrado de gestão para **Salão de Beleza**, **Mercado** e **Farmáci
 
 ---
 
-## 🧠 Técnicas e Padrões de Projeto
+## 🧠 Técnicas e Padrões de Projeto <a id="técnicas-e-padrões-de-projeto"></a>
 
 - **Programação Orientada a Objetos (OOP)** – Classes bem definidas (`Usuario`, `Cliente`, `Servico`, `Agenda`, `Produto`, `Venda`), encapsulamento, herança (embora não usada diretamente) e polimorfismo.
 - **Padrão DAO (Data Access Object)** – Separação da lógica de persistência (ex: `UsuarioDAO`, `AgendaDAO`).
@@ -44,7 +40,7 @@ Sistema integrado de gestão para **Salão de Beleza**, **Mercado** e **Farmáci
 
 ---
 
-## 📖 Visão Geral do Sistema
+## 📖 Visão Geral do Sistema <a id="visão-geral-do-sistema"></a>
 
 O **MultiGestão Hub** é uma aplicação desktop multi‑instância que atende três tipos de negócio:
 
@@ -62,7 +58,7 @@ O **MultiGestão Hub** é uma aplicação desktop multi‑instância que atende 
 
 ---
 
-## ✨ Funcionalidades Principais
+## ✨ Funcionalidades Principais <a id="funcionalidades-principais"></a>
 
 ### Para o Cliente
 - Cadastro/login com perfil CLIENTE.
@@ -84,21 +80,4 @@ O **MultiGestão Hub** é uma aplicação desktop multi‑instância que atende 
 - Login com perfil ADM.
 - Dashboard com gráfico de faturamento por tipo de negócio (dados reais do banco).
 
----
 
-## ⚙️ Como Executar
-
-### Pré‑requisitos
-- Java 11 ou superior
-- MySQL 8.0+
-- Maven (opcional, mas recomendado)
-
-### Passos
-1. **Clone o repositório** (ou copie os arquivos).
-2. **Crie o banco de dados** executando o script `DDL.sql` (enviado junto).
-3. **Configure a conexão** no arquivo `db.properties` (em `src/main/resources` ou na raiz):
-   ```properties
-   db.name = ljbd
-   db.user = root
-   db.url = jdbc:mysql://localhost:3306/
-   db.password = sua_senha
