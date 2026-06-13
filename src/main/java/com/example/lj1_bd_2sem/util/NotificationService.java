@@ -36,7 +36,6 @@ public class NotificationService {
         this.primaryStage = stage;
         if (pollingTimeline != null) pollingTimeline.stop();
 
-        // Verificação imediata: se já existir um agendamento EM ANDAMENTO, abrir tela de execução
         verificarAgendamentoEmAndamento();
 
         pollingTimeline = new Timeline(new KeyFrame(Duration.seconds(3), e -> {

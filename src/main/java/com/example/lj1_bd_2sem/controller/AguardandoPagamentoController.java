@@ -42,7 +42,6 @@ public class AguardandoPagamentoController {
 
     private void iniciarPollingPagamento() {
         pollingTimeline = new Timeline(new KeyFrame(Duration.seconds(2), e -> {
-            // Verifica se o agendamento foi pago
             if (agendaDAO.isPago(agendaId)) {
                 pollingTimeline.stop();
                 Stage stage = (Stage) lblMensagem.getScene().getWindow();
@@ -87,7 +86,6 @@ public class AguardandoPagamentoController {
             cliente = clienteDAO.buscarPorId(cliente.getId());
         }
 
-        // Agora o saldo é suficiente (ou já era). Efetua o pagamento (debitando o valor)
         if (cliente.getBalanca() >= valorServico) {
             double novoSaldo = cliente.getBalanca() - valorServico;
             clienteDAO.atualizarSaldo(cliente.getId(), novoSaldo);

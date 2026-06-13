@@ -59,7 +59,7 @@ public class HomeController {
                 }
                 double novoSaldo = cliente.getBalanca() + valor;
                 clienteDAO.atualizarSaldo(user.getId(), novoSaldo);
-                // Atualiza a sessão? O cliente não tem o saldo na sessão, mas atualizamos o label
+
                 atualizarSaldo();
                 mostrarAlerta("Recarga realizada! Novo saldo: R$ " + String.format("%.2f", novoSaldo));
             } catch (NumberFormatException e) {

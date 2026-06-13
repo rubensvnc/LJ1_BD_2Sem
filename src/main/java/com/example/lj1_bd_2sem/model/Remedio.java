@@ -6,18 +6,15 @@ public class Remedio {
     private Boolean usaReceita;
     private String crmMedico;
 
-    // Construtor vazio
     public Remedio() {
     }
 
-    // Construtor completo
     public Remedio(Integer idProduto, Boolean usaReceita, String crmMedico) {
         this.idProduto = idProduto;
         this.usaReceita = usaReceita;
         this.crmMedico = crmMedico;
     }
 
-    // Getters e Setters
     public Integer getIdProduto() {
         return idProduto;
     }

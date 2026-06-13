@@ -4,17 +4,14 @@ public class Cliente {
     private Integer id;
     private Double balanca;
 
-    // Construtor vazio
     public Cliente() {
     }
 
-    // Construtor completo
     public Cliente(Integer id, Double balanca) {
         this.id = id;
         this.balanca = balanca;
     }
 
-    // Getters e Setters
     public Integer getId() {
         return id;
     }

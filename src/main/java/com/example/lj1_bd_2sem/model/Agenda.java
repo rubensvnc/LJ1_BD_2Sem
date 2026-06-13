@@ -10,11 +10,9 @@ public class Agenda {
     private LocalTime horaAgendado;
     private String statusConclusao; // PENDENTE, EM ANDAMENTO, CONCLUIDO, CANCELADO
 
-    // Construtor vazio
     public Agenda() {
     }
 
-    // Construtor completo
     public Agenda(Integer id, Integer clienteId, Integer profissionalId, Integer servicoId,
                   LocalTime horaAgendado, String statusConclusao) {
         this.id = id;
@@ -25,7 +23,6 @@ public class Agenda {
         this.statusConclusao = statusConclusao;
     }
 
-    // Getters e Setters
     public Integer getId() {
         return id;
     }

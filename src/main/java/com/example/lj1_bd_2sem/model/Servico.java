@@ -6,11 +6,9 @@ public class Servico {
     private Double valor;
     private Integer duracao;
 
-    // Construtor vazio
     public Servico() {
     }
 
-    // Construtor completo
     public Servico(Integer id, String nome, Double valor, Integer duracao) {
         this.id = id;
         this.nome = nome;
@@ -18,7 +16,6 @@ public class Servico {
         this.duracao = duracao;
     }
 
-    // Getters e Setters
     public Integer getId() {
         return id;
     }

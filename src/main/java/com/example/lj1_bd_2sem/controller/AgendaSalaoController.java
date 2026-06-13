@@ -218,9 +218,7 @@ public class AgendaSalaoController {
             agenda.setServicoId(novoServico.getId());
             agenda.setHoraAgendado(novaHora);
             agenda.setStatusConclusao(novoStatus);
-            // Nota: a tabela agenda não tem data, apenas hora. Se quiser suporte a data, precisaria alterar o banco.
-            // Por enquanto, ignoramos a data.
-            agendaDAO.atualizar(agenda); // Precisamos criar este método no AgendaDAO
+            agendaDAO.atualizar(agenda);
             mostrarAlerta(Alert.AlertType.INFORMATION, "Sucesso", "Agendamento atualizado!");
             carregarAgenda();
         } else {

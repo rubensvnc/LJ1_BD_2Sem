@@ -12,11 +12,9 @@ public class Produto {
     private String tipo;
     private Integer qtd;
 
-    // Construtor vazio
     public Produto() {
     }
 
-    // Construtor completo
     public Produto(Integer id, String codigoBarras, String nome, Double precoBase,
                    LocalDate validade, String tipo, Integer qtd) {
         this.id = id;
@@ -28,7 +26,6 @@ public class Produto {
         this.qtd = qtd;
     }
 
-    // Getters e Setters
     public Integer getId() {
         return id;
     }
