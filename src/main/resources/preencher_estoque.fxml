@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox prefHeight="500.0" prefWidth="600.0" spacing="20.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.lj1_bd_2sem.controller.PreencherEstoqueController">
+    <padding>
+        <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+    </padding>
+    <children>
+        <Button fx:id="btnVoltarMenu" onAction="#voltarMenu" text="Voltar ao Menu" />
+        <Label text="Cadastro de Produtos / Entrada de Estoque">
+            <font>
+                <Font name="System Bold" size="20.0" />
+            </font>
+        </Label>
+
+        <GridPane hgap="15.0" vgap="15.0">
+            <columnConstraints>
+                <ColumnConstraints hgrow="NEVER" minWidth="120.0" />
+                <ColumnConstraints hgrow="ALWAYS" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="30.0" />
+                <RowConstraints minHeight="30.0" />
+                <RowConstraints minHeight="30.0" />
+                <RowConstraints minHeight="30.0" />
+                <RowConstraints minHeight="30.0" />
+            </rowConstraints>
+            <children>
+                <Label text="Tipo de Negócio:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                <ComboBox fx:id="comboTipoNegocio" onAction="#handleTipoNegocioChange" prefWidth="200.0" promptText="Selecione..." GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+                <Label text="Nome do Produto:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                <TextField fx:id="txtNome" promptText="Ex: Arroz Integral ou Dipirona" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+                <Label text="Código de Barras:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                <TextField fx:id="txtCodigoBarras" promptText="Digite ou passe o leitor" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+                <Label text="Preço de Venda (R$):" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                <TextField fx:id="txtPreco" promptText="0.00" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+
+                <Label text="Quantidade Inicial:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+                <TextField fx:id="txtEstoque" promptText="0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+
+                <Label text="Data de Validade:" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+                <DatePicker fx:id="pickerValidade" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            </children>
+        </GridPane>
+
+        <VBox fx:id="boxFarmacia" spacing="15.0" style="-fx-border-color: #bdc3c7; -fx-border-width: 1 0 0 0; -fx-padding: 15 0 0 0;">
+            <children>
+                <Label text="Informações Controladas (Farmácia)" textFill="#2980b9">
+                    <font>
+                        <Font name="System Bold" size="14.0" />
+                    </font>
+                </Label>
+                <GridPane hgap="15.0" vgap="15.0">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="NEVER" minWidth="120.0" />
+                        <ColumnConstraints hgrow="ALWAYS" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="30.0" />
+                        <RowConstraints minHeight="30.0" />
+                    </rowConstraints>
+                    <children>
+                        <Label text="Retenção de Receita:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                        <CheckBox fx:id="chkPrecedeReceita" mnemonicParsing="false" text="Este medicamento exige receita médica" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                    </children>
+                </GridPane>
+            </children>
+        </VBox>
+
+        <HBox alignment="CENTER_RIGHT" spacing="15.0" VBox.vgrow="ALWAYS">
+            <children>
+                <Button fx:id="btnCancelar" mnemonicParsing="false" onAction="#handleCancelar" prefWidth="100.0" text="Cancelar" />
+                <Button fx:id="btnSalvar" mnemonicParsing="false" onAction="#handleSalvar" prefWidth="120.0" style="-fx-background-color: #27ae60; -fx-text-fill: white;" text="Salvar Produto">
+                    <font>
+                        <Font name="System Bold" size="12.0" />
+                    </font>
+                </Button>
+            </children>
+            <padding>
+                <Insets top="10.0" />
+            </padding>
+        </HBox>
+    </children>
+</VBox>

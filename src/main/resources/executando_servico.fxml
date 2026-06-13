@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="CENTER" prefHeight="400.0" prefWidth="500.0" spacing="20.0" style="-fx-background-color: #2c3e50;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.lj1_bd_2sem.controller.ExecutandoServicoController">
+    <padding>
+        <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+    </padding>
+    <children>
+        <Label fx:id="lblStatusServico" text="Realizando Serviço..." textFill="WHITE">
+            <font>
+                <Font name="System Bold" size="18.0" />
+            </font>
+        </Label>
+
+        <VBox alignment="CENTER" style="-fx-background-color: #000; -fx-border-color: #7f8c8d; -fx-border-width: 2;" VBox.vgrow="ALWAYS">
+            <children>
+                <ImageView fx:id="imageViewGif" fitHeight="200.0" fitWidth="350.0" preserveRatio="true" />
+            </children>
+        </VBox>
+
+        <Label fx:id="lblTempoRestante" text="Tempo restante: Calculando..." textFill="#bdc3c7" />
+
+        <ProgressBar fx:id="progressServico" prefWidth="400.0" progress="0.0" style="-fx-accent: #2ecc71;" />
+    </children>
+</VBox>

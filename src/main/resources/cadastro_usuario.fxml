@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="CENTER" prefHeight="650.0" prefWidth="500.0" spacing="20.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.lj1_bd_2sem.controller.CadastroUsuarioController">
+    <padding><Insets bottom="30.0" left="40.0" right="40.0" top="30.0" /></padding>
+    <children>
+        <VBox alignment="CENTER" spacing="5.0">
+            <Label text="Criar Nova Conta"><font><Font name="System Bold" size="24.0" /></font></Label>
+            <Label text="Preencha os campos abaixo para se cadastrar" textFill="#7f8c8d" />
+        </VBox>
+        <GridPane hgap="10.0" vgap="15.0">
+            <columnConstraints><ColumnConstraints hgrow="NEVER" minWidth="100.0" /><ColumnConstraints hgrow="ALWAYS" /></columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="30.0" /><RowConstraints minHeight="30.0" /><RowConstraints minHeight="30.0" /><RowConstraints minHeight="30.0" />
+            </rowConstraints>
+            <children>
+                <Label text="Nome Completo:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                <TextField fx:id="txtNome" promptText="Digite seu nome" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                <Label text="Usuário (Login):" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                <TextField fx:id="txtLogin" promptText="Escolha um nome de usuário" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <Label text="Senha:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                <PasswordField fx:id="txtSenha" promptText="Digite sua senha" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                <Label text="Tipo de Perfil:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                <ComboBox fx:id="comboPerfil" onAction="#handlePerfilChange" prefWidth="270.0" promptText="Selecione seu perfil..." GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            </children>
+        </GridPane>
+        <VBox fx:id="boxClienteExclusivo" spacing="10.0" style="-fx-background-color: #f8f9fa; -fx-padding: 15; -fx-border-color: #e2e8f0; -fx-border-radius: 5; -fx-background-radius: 5;">
+            <Label text="Informações do Cliente" textFill="#2c3e50"><font><Font name="System Bold" size="13.0" /></font></Label>
+            <GridPane hgap="10.0" vgap="10.0">
+                <columnConstraints><ColumnConstraints hgrow="NEVER" minWidth="90.0" /><ColumnConstraints hgrow="ALWAYS" /></columnConstraints>
+                <rowConstraints><RowConstraints minHeight="30.0" /></rowConstraints>
+                <Label text="Balança Inicial:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                <TextField fx:id="txtBalanca" text="0.00" promptText="Saldo inicial (R$)" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+            </GridPane>
+        </VBox>
+        <VBox fx:id="boxProfissionalExclusivo" spacing="10.0" style="-fx-background-color: #f8f9fa; -fx-padding: 15; -fx-border-color: #e2e8f0; -fx-border-radius: 5; -fx-background-radius: 5;">
+            <Label text="Tipo de Profissional" textFill="#2c3e50"><font><Font name="System Bold" size="13.0" /></font></Label>
+            <GridPane hgap="10.0" vgap="10.0">
+                <columnConstraints><ColumnConstraints hgrow="NEVER" minWidth="90.0" /><ColumnConstraints hgrow="ALWAYS" /></columnConstraints>
+                <rowConstraints><RowConstraints minHeight="30.0" /></rowConstraints>
+                <Label text="Negócio:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                <ComboBox fx:id="comboTipoProfissional" prefWidth="200.0" promptText="Selecione o tipo..." GridPane.columnIndex="1" GridPane.rowIndex="0" />
+            </GridPane>
+        </VBox>
+        <Button fx:id="btnCadastrar" onAction="#handleCadastrar" prefHeight="40.0" prefWidth="250.0" style="-fx-background-color: #2ecc71; -fx-text-fill: white;" text="Registrar Conta">
+            <font><Font name="System Bold" size="14.0" /></font><VBox.margin><Insets top="10.0" /></VBox.margin>
+        </Button>
+        <HBox alignment="CENTER" spacing="5.0">
+            <Label text="Já possui uma conta?" textFill="#7f8c8d" />
+            <Hyperlink fx:id="linkLogin" onAction="#irParaTelaLogin" text="Faça login aqui" textFill="#2980b9"><font><Font name="System Bold" size="12.0" /></font></Hyperlink>
+        </HBox>
+    </children>
+</VBox>
