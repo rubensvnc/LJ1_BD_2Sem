@@ -8,8 +8,8 @@ Este manual orienta os diferentes perfis de usuário (CLIENTE, PROFISSIONAL e AD
 
 ## 📋 Índice
 
-1. [Primeiros Passos](#primeiros-passos)
-2. [Perfil CLIENTE](#perfil-cliente)
+1. <a href ="#primeiros-passos"> Primerios Passos </a>
+2. <a href ="#perfil-cliente"> Perfil Cliente</a>
    - 2.1. Cadastro e Login
    - 2.2. Recarga de Saldo
    - 2.3. Agendamento de Serviços (Salão)
@@ -25,11 +25,12 @@ Este manual orienta os diferentes perfis de usuário (CLIENTE, PROFISSIONAL e AD
 5. [Funcionalidades Transversais](#funcionalidades-transversais)
    - 5.1. Sincronização em Tempo Real (Polling)
    - 5.2. Controle de Saldo e Pagamentos
-6. [Perguntas Frequentes](#perguntas-frequentes)
+6. <a href ="#perguntas-frequentes"> Perguntas Frequentes </a>
+   
 
 ---
 
-## 1. Primeiros Passos
+## 1. Primeiros Passos <a id="primeiros-passos"></a>
 
 Ao executar o sistema, a tela de **Login** será exibida.
 
@@ -38,7 +39,7 @@ Ao executar o sistema, a tela de **Login** será exibida.
 
 ---
 
-## 2. Perfil CLIENTE
+## 2. Perfil CLIENTE <a id="perfil-cliente"></a>
 
 ### 2.1. Cadastro e Login
 
@@ -98,7 +99,7 @@ Após o pagamento, você retornará à **Home**.
 
 ---
 
-## 3. Perfil PROFISSIONAL
+## 3. Perfil PROFISSIONAL <a id="perfil-profissional"></a>
 
 ### 3.1. Tipos de Profissional
 
@@ -140,7 +141,7 @@ Após login, o profissional é direcionado ao **Menu Profissional**, que exibe a
 
 ---
 
-## 4. Perfil ADM
+## 4. Perfil ADM <a id="perfil-adm"></a>
 
 - O administrador tem acesso ao **Dashboard**.
 - No dashboard, é possível:
@@ -152,7 +153,7 @@ Após login, o profissional é direcionado ao **Menu Profissional**, que exibe a
 
 ---
 
-## 5. Funcionalidades Transversais
+## 5. Funcionalidades Transversais <a id="funcionalidades-transversais"></a>
 
 ### 5.1. Sincronização em Tempo Real (Polling)
 
@@ -172,7 +173,7 @@ Após login, o profissional é direcionado ao **Menu Profissional**, que exibe a
 
 ---
 
-## 6. Perguntas Frequentes
+## 6. Perguntas Frequentes <a id="perguntas-frequentes"></a>
 
 **1. O que fazer se o GIF do serviço não aparecer?**  
 Verifique se o arquivo `.gif` está na pasta `videos` dentro dos recursos do sistema e se o nome corresponde ao serviço (minúsculas, espaços substituídos por `_`). O sistema exibirá uma mensagem de erro caso o arquivo não seja encontrado.
